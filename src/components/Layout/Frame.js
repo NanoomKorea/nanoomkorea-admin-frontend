@@ -1,5 +1,6 @@
 import React from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import en from "@shopify/polaris/locales/en.json";
 import { AppProvider, Frame } from "@shopify/polaris";
 
@@ -25,6 +26,12 @@ export default function AdminFrame({ title, children }) {
 
   return (
     <AppProvider i18n={en} linkComponent={Link}>
+      <HelmetProvider>
+        <Helmet>
+          <title>{`${title} - 나눔코리아 어드민`}</title>
+        </Helmet>
+      </HelmetProvider>
+
       <Frame logo={logo} topBar={<TopBarFrame />} navigation={<SideBarFrame />}>
         {children}
       </Frame>

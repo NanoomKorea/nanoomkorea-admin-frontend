@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import Login from "utils/Login";
 
 const LoginPage = () => {
@@ -14,6 +15,12 @@ const LoginPage = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>로그인 - 나눔코리아 어드민</title>
+        </Helmet>
+      </HelmetProvider>
+
       <div>LoginPage</div>
       <input placeholder="이메일" onChange={onChangeEmail} />
       <input placeholder="비밀번호" onChange={onChangePassword} />

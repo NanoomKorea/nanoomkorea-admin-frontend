@@ -3,7 +3,7 @@ import AdminFrame from "components/Layout/Frame";
 
 const WorkWritePage = () => {
   return (
-    <AdminFrame>
+    <AdminFrame title="봉사 추가">
       <div>WorkWritePage</div>
     </AdminFrame>
   );
