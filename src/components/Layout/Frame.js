@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link as ReactRouterLink } from "react-router-dom";
 import en from "@shopify/polaris/locales/en.json";
 import { AppProvider, Frame } from "@shopify/polaris";
 
@@ -15,8 +15,16 @@ export default function AdminFrame({ title, children }) {
     accessibilityLabel: "Jaded Pixel",
   };
 
+  const Link = ({ children, url = "", ...rest }) => {
+    return (
+      <ReactRouterLink to={url} {...rest}>
+        {children}
+      </ReactRouterLink>
+    );
+  };
+
   return (
-    <AppProvider i18n={en}>
+    <AppProvider i18n={en} linkComponent={Link}>
       <Frame logo={logo} topBar={<TopBarFrame />} navigation={<SideBarFrame />}>
         {children}
       </Frame>
