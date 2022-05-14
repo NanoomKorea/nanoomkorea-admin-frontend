@@ -1,102 +1,53 @@
-import React, { useCallback, useState } from "react";
-import { ActionList, Icon, TopBar, VisuallyHidden } from "@shopify/polaris";
-import { ArrowLeftMinor, QuestionMarkMajor } from "@shopify/polaris-icons";
+import React, { useCallback, useContext, useState } from "react";
+import { TopBar } from "@shopify/polaris";
+import { LogOutMinor, CustomersMinor } from "@shopify/polaris-icons";
+import Logout from "utils/Logout";
+import { UserInfoContext } from "contexts/UserInfo";
 
-export default function TopBarFrame() {
+export default function TopBarFrame(props) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isSecondaryMenuOpen, setIsSecondaryMenuOpen] = useState(false);
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const { userInfo } = useContext(UserInfoContext);
 
   const toggleIsUserMenuOpen = useCallback(
     () => setIsUserMenuOpen((isUserMenuOpen) => !isUserMenuOpen),
     []
   );
 
-  const toggleIsSecondaryMenuOpen = useCallback(
-    () => setIsSecondaryMenuOpen((isSecondaryMenuOpen) => !isSecondaryMenuOpen),
-    []
-  );
-
-  const handleSearchResultsDismiss = useCallback(() => {
-    setIsSearchActive(false);
-    setSearchValue("");
-  }, []);
-
-  const handleSearchChange = useCallback((value) => {
-    setSearchValue(value);
-    setIsSearchActive(value.length > 0);
-  }, []);
-
-  const handleNavigationToggle = useCallback(() => {
-    console.log("toggle navigation visibility");
-  }, []);
-
-  const userMenuMarkup = (
+  const userMenuMarkup = Object.keys(userInfo).length ? (
     <TopBar.UserMenu
       actions={[
         {
-          items: [{ content: "Back to Shopify", icon: ArrowLeftMinor }],
+          items: [
+            {
+              content: "내 정보",
+              icon: CustomersMinor,
+              url: "/profile",
+            },
+          ],
         },
         {
-          items: [{ content: "Community forums" }],
+          items: [
+            {
+              content: "로그아웃",
+              icon: LogOutMinor,
+              onAction: () => Logout(),
+            },
+          ],
         },
       ]}
-      name="Dharma"
-      detail="Jaded Pixel"
-      initials="D"
+      name={userInfo.name ? userInfo.name : "프로필을 수정해주세요"}
+      detail={userInfo.email}
+      avatar={userInfo.photoURL}
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
     />
-  );
-
-  const searchResultsMarkup = (
-    <ActionList
-      items={[
-        { content: "Shopify help center" },
-        { content: "Community forums" },
-      ]}
-    />
-  );
-
-  const searchFieldMarkup = (
-    <TopBar.SearchField
-      onChange={handleSearchChange}
-      value={searchValue}
-      placeholder="Search"
-      showFocusBorder
-    />
-  );
-
-  const secondaryMenuMarkup = (
-    <TopBar.Menu
-      activatorContent={
-        <span>
-          <Icon source={QuestionMarkMajor} />
-          <VisuallyHidden>Secondary menu</VisuallyHidden>
-        </span>
-      }
-      open={isSecondaryMenuOpen}
-      onOpen={toggleIsSecondaryMenuOpen}
-      onClose={toggleIsSecondaryMenuOpen}
-      actions={[
-        {
-          items: [{ content: "Community forums" }],
-        },
-      ]}
-    />
-  );
+  ) : null;
 
   return (
     <TopBar
       showNavigationToggle
       userMenu={userMenuMarkup}
-      secondaryMenu={secondaryMenuMarkup}
-      searchResultsVisible={isSearchActive}
-      searchField={searchFieldMarkup}
-      searchResults={searchResultsMarkup}
-      onSearchResultsDismiss={handleSearchResultsDismiss}
-      onNavigationToggle={handleNavigationToggle}
+      onNavigationToggle={props.toggleMobileNavigationActive}
     />
   );
 }

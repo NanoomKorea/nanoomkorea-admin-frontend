@@ -29,6 +29,7 @@ function App() {
           avatar: user.photoURL,
         });
         setIsLoggedIn(true);
+        console.log(user);
       } else {
         setIsLoggedIn(false);
       }
