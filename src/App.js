@@ -10,6 +10,7 @@ import WorkListPage from "pages/WorkList";
 import WorkWritePage from "pages/WorkWrite";
 import PeopleListPage from "pages/PeopleList";
 import LoginPage from "pages/Login";
+import FullPage from "common/Loading/FullPage";
 
 const auth = getAuth(firebaseApp);
 
@@ -42,7 +43,7 @@ function App() {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/*" element={<div>로딩중...</div>}></Route>
+            <Route path="/*" element={<FullPage />}></Route>
           </Routes>
         )
       ) : (
