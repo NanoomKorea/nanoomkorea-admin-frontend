@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
 import "./App.css";
 import { SignContext } from "contexts/IsLoggedIn";
-import { getAuth } from "firebase/auth";
+import { UserInfoContext } from "contexts/UserInfo";
 import { firebaseApp } from "apis/Firebase";
 import DashboardPage from "pages/Dashboard";
 import WorkListPage from "pages/WorkList";
@@ -16,11 +17,17 @@ const auth = getAuth(firebaseApp);
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(SignContext);
+  const { setUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem("uid", `${user.uid}`);
+        setUserInfo({
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        });
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
