@@ -11,8 +11,8 @@ module.exports = {
     "comma-dangle": [
       "error",
       {
-        imports: "never",
-        exports: "never",
+        imports: "always-multiline",
+        exports: "always-multiline",
         functions: "never",
         arrays: "always-multiline",
         objects: "always-multiline",
@@ -20,6 +20,7 @@ module.exports = {
     ],
     "no-unused-vars": ["error", { vars: "all", args: "none" }],
     "space-before-function-paren": ["error", "never"],
+    "react/prop-types": "off",
   },
   parserOptions: {
     ecmaFeatures: {
