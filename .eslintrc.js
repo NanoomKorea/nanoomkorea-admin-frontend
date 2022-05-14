@@ -21,6 +21,7 @@ module.exports = {
     "no-unused-vars": ["error", { vars: "all", args: "none" }],
     "space-before-function-paren": ["error", "never"],
     "react/prop-types": "off",
+    "multiline-ternary": "off",
   },
   parserOptions: {
     ecmaFeatures: {
