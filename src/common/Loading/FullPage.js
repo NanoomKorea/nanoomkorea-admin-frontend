@@ -5,7 +5,7 @@ import AdminFrame from "components/Layout/Frame";
 const FullPage = () => {
   return (
     <>
-      <AdminFrame>
+      <AdminFrame title="로딩중">
         <Loading />
         <EmptyState />
         <EmptyState />
