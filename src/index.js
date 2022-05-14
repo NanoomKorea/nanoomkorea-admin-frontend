@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { SignProvider } from "contexts/IsLoggedIn";
+import { UserInfoProvider } from "contexts/UserInfo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SignProvider>
-      <App />
+      <UserInfoProvider>
+        <App />
+      </UserInfoProvider>
     </SignProvider>
   </React.StrictMode>
 );
